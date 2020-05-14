@@ -409,6 +409,7 @@ pub struct Store {
     pub status_address: ::std::string::String,
     pub git_hash: ::std::string::String,
     pub start_timestamp: i64,
+    pub deploy_path: ::std::string::String,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::protobuf::CachedSize,
@@ -618,6 +619,32 @@ impl Store {
     pub fn get_start_timestamp(&self) -> i64 {
         self.start_timestamp
     }
+
+    // string deploy_path = 10;
+
+    pub fn clear_deploy_path(&mut self) {
+        self.deploy_path.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_deploy_path(&mut self, v: ::std::string::String) {
+        self.deploy_path = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_deploy_path(&mut self) -> &mut ::std::string::String {
+        &mut self.deploy_path
+    }
+
+    // Take field
+    pub fn take_deploy_path(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.deploy_path, ::std::string::String::new())
+    }
+
+    pub fn get_deploy_path(&self) -> &str {
+        &self.deploy_path
+    }
 }
 
 impl ::protobuf::Message for Store {
@@ -669,6 +696,9 @@ impl ::protobuf::Message for Store {
                     let tmp = is.read_int64()?;
                     self.start_timestamp = tmp;
                 },
+                10 => {
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.deploy_path)?;
+                },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
                 },
@@ -709,6 +739,9 @@ impl ::protobuf::Message for Store {
         if self.start_timestamp != 0 {
             my_size += ::protobuf::rt::value_size(9, self.start_timestamp, ::protobuf::wire_format::WireTypeVarint);
         }
+        if !self.deploy_path.is_empty() {
+            my_size += ::protobuf::rt::string_size(10, &self.deploy_path);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -743,6 +776,9 @@ impl ::protobuf::Message for Store {
         }
         if self.start_timestamp != 0 {
             os.write_int64(9, self.start_timestamp)?;
+        }
+        if !self.deploy_path.is_empty() {
+            os.write_string(10, &self.deploy_path)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -800,6 +836,7 @@ impl ::protobuf::Clear for Store {
         self.clear_status_address();
         self.clear_git_hash();
         self.clear_start_timestamp();
+        self.clear_deploy_path();
         self.unknown_fields.clear();
     }
 }
@@ -818,6 +855,7 @@ impl crate::text::PbPrint for Store {
         crate::text::PbPrint::fmt(&self.status_address, "status_address", buf);
         crate::text::PbPrint::fmt(&self.git_hash, "git_hash", buf);
         crate::text::PbPrint::fmt(&self.start_timestamp, "start_timestamp", buf);
+        crate::text::PbPrint::fmt(&self.deploy_path, "deploy_path", buf);
         if old_len < buf.len() {
           buf.push(' ');
         }
@@ -837,6 +875,7 @@ impl ::std::fmt::Debug for Store {
         crate::text::PbPrint::fmt(&self.status_address, "status_address", &mut s);
         crate::text::PbPrint::fmt(&self.git_hash, "git_hash", &mut s);
         crate::text::PbPrint::fmt(&self.start_timestamp, "start_timestamp", &mut s);
+        crate::text::PbPrint::fmt(&self.deploy_path, "deploy_path", &mut s);
         write!(f, "{}", s)
     }
 }
